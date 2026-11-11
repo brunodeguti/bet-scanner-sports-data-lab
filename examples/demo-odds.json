@@ -1,0 +1,200 @@
+{
+  "rows": [
+    {
+      "sport": "Futebol",
+      "league": "DEMONSTRAÇÃO",
+      "event": "Azul FC x Laranja FC",
+      "starts_at": "2026-12-01T20:00:00-03:00",
+      "market_key": "total_shots_1h_7_5",
+      "market_name": "Chutes no 1º tempo — linha 7,5",
+      "outcome": "Over 7,5",
+      "bookmaker": "Casa Alfa (demo)",
+      "odds": 2.12,
+      "estimated_probability": 0.52,
+      "is_demo": true,
+      "captured_at": "2026-09-21T09:00:00-03:00",
+      "expected_outcomes": [
+        "Over 7,5",
+        "Under 7,5"
+      ]
+    },
+    {
+      "sport": "Futebol",
+      "league": "DEMONSTRAÇÃO",
+      "event": "Azul FC x Laranja FC",
+      "starts_at": "2026-12-01T20:00:00-03:00",
+      "market_key": "total_shots_1h_7_5",
+      "market_name": "Chutes no 1º tempo — linha 7,5",
+      "outcome": "Under 7,5",
+      "bookmaker": "Casa Beta (demo)",
+      "odds": 2.05,
+      "estimated_probability": 0.48,
+      "is_demo": true,
+      "captured_at": "2026-09-21T09:00:00-03:00",
+      "expected_outcomes": [
+        "Over 7,5",
+        "Under 7,5"
+      ]
+    },
+    {
+      "sport": "Futebol",
+      "league": "DEMONSTRAÇÃO",
+      "event": "Azul FC x Laranja FC",
+      "starts_at": "2026-12-01T20:00:00-03:00",
+      "market_key": "total_shots_1h_7_5",
+      "market_name": "Chutes no 1º tempo — linha 7,5",
+      "outcome": "Over 7,5",
+      "bookmaker": "Referência 1 (demo)",
+      "odds": 1.91,
+      "is_reference": true,
+      "is_demo": true,
+      "captured_at": "2026-09-21T09:00:00-03:00",
+      "expected_outcomes": [
+        "Over 7,5",
+        "Under 7,5"
+      ]
+    },
+    {
+      "sport": "Futebol",
+      "league": "DEMONSTRAÇÃO",
+      "event": "Azul FC x Laranja FC",
+      "starts_at": "2026-12-01T20:00:00-03:00",
+      "market_key": "total_shots_1h_7_5",
+      "market_name": "Chutes no 1º tempo — linha 7,5",
+      "outcome": "Under 7,5",
+      "bookmaker": "Referência 1 (demo)",
+      "odds": 1.91,
+      "is_reference": true,
+      "is_demo": true,
+      "captured_at": "2026-09-21T09:00:00-03:00",
+      "expected_outcomes": [
+        "Over 7,5",
+        "Under 7,5"
+      ]
+    },
+    {
+      "sport": "Futebol",
+      "league": "DEMONSTRAÇÃO",
+      "event": "Verde FC x Roxo FC",
+      "starts_at": "2026-12-02T21:30:00-03:00",
+      "market_key": "match_winner_3way",
+      "market_name": "Vencedor da partida",
+      "outcome": "Verde FC",
+      "bookmaker": "Casa Alfa (demo)",
+      "odds": 3.4,
+      "is_demo": true,
+      "captured_at": "2026-09-21T09:00:00-03:00",
+      "expected_outcomes": [
+        "Verde FC",
+        "Empate",
+        "Roxo FC"
+      ]
+    },
+    {
+      "sport": "Futebol",
+      "league": "DEMONSTRAÇÃO",
+      "event": "Verde FC x Roxo FC",
+      "starts_at": "2026-12-02T21:30:00-03:00",
+      "market_key": "match_winner_3way",
+      "market_name": "Vencedor da partida",
+      "outcome": "Empate",
+      "bookmaker": "Casa Beta (demo)",
+      "odds": 3.6,
+      "is_demo": true,
+      "captured_at": "2026-09-21T09:00:00-03:00",
+      "expected_outcomes": [
+        "Verde FC",
+        "Empate",
+        "Roxo FC"
+      ]
+    },
+    {
+      "sport": "Futebol",
+      "league": "DEMONSTRAÇÃO",
+      "event": "Verde FC x Roxo FC",
+      "starts_at": "2026-12-02T21:30:00-03:00",
+      "market_key": "match_winner_3way",
+      "market_name": "Vencedor da partida",
+      "outcome": "Roxo FC",
+      "bookmaker": "Casa Gama (demo)",
+      "odds": 2.5,
+      "is_demo": true,
+      "captured_at": "2026-09-21T09:00:00-03:00",
+      "expected_outcomes": [
+        "Verde FC",
+        "Empate",
+        "Roxo FC"
+      ]
+    },
+    {
+      "sport": "Basquete",
+      "league": "DEMONSTRAÇÃO",
+      "event": "Time Norte x Time Sul",
+      "starts_at": "2026-12-03T19:00:00-03:00",
+      "market_key": "total_points_180_5",
+      "market_name": "Total de pontos — linha 180,5",
+      "outcome": "Over 180,5",
+      "bookmaker": "Casa Alfa (demo)",
+      "odds": 2.15,
+      "is_demo": true,
+      "captured_at": "2026-09-21T09:00:00-03:00",
+      "expected_outcomes": [
+        "Over 180,5",
+        "Under 180,5"
+      ]
+    },
+    {
+      "sport": "Basquete",
+      "league": "DEMONSTRAÇÃO",
+      "event": "Time Norte x Time Sul",
+      "starts_at": "2026-12-03T19:00:00-03:00",
+      "market_key": "total_points_180_5",
+      "market_name": "Total de pontos — linha 180,5",
+      "outcome": "Under 180,5",
+      "bookmaker": "Casa Beta (demo)",
+      "odds": 1.78,
+      "is_demo": true,
+      "captured_at": "2026-09-21T09:00:00-03:00",
+      "expected_outcomes": [
+        "Over 180,5",
+        "Under 180,5"
+      ]
+    },
+    {
+      "sport": "Basquete",
+      "league": "DEMONSTRAÇÃO",
+      "event": "Time Norte x Time Sul",
+      "starts_at": "2026-12-03T19:00:00-03:00",
+      "market_key": "total_points_180_5",
+      "market_name": "Total de pontos — linha 180,5",
+      "outcome": "Over 180,5",
+      "bookmaker": "Referência 1 (demo)",
+      "odds": 1.9,
+      "is_reference": true,
+      "is_demo": true,
+      "captured_at": "2026-09-21T09:00:00-03:00",
+      "expected_outcomes": [
+        "Over 180,5",
+        "Under 180,5"
+      ]
+    },
+    {
+      "sport": "Basquete",
+      "league": "DEMONSTRAÇÃO",
+      "event": "Time Norte x Time Sul",
+      "starts_at": "2026-12-03T19:00:00-03:00",
+      "market_key": "total_points_180_5",
+      "market_name": "Total de pontos — linha 180,5",
+      "outcome": "Under 180,5",
+      "bookmaker": "Referência 1 (demo)",
+      "odds": 1.9,
+      "is_reference": true,
+      "is_demo": true,
+      "captured_at": "2026-09-21T09:00:00-03:00",
+      "expected_outcomes": [
+        "Over 180,5",
+        "Under 180,5"
+      ]
+    }
+  ]
+}

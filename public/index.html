@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bet Scanner | Sports Data Lab</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header>
+    <div>
+      <span class="eyebrow">PORTFÓLIO • ANÁLISE ESPORTIVA OFFLINE</span>
+      <h1>Bet Scanner <span>Sports Data Lab</span> <small class="app-version">v1.13.1</small></h1>
+      <p>Explore estatísticas esportivas, tratamento de dados e simulações matemáticas com fontes fictícias.</p>
+    </div>
+    <div class="status"><i></i><span id="health">Verificando sistema…</span></div>
+  </header>
+
+  <main>
+    <section class="toolbar panel">
+      <div class="field"><label for="type">Mostrar</label><select id="type"><option value="all">Todos</option><option value="surebet">Só surebets</option><option value="ev">Só +EV</option></select></div>
+      <div class="field"><label for="minEv">EV mínimo (%)</label><input id="minEv" type="number" value="2" step="0.1"></div>
+      <div class="field"><label for="sort">Ordenar por</label><select id="sort"><option value="event">Evento</option><option value="roi">ROI surebet</option><option value="ev">Maior EV</option></select></div>
+      <button id="refresh" class="primary">Atualizar scanner</button>
+    </section>
+
+    <section class="metrics" id="metrics"></section>
+    <section class="notice"><strong>Demonstração offline:</strong> todas as cotações e valores financeiros são fictícios. Não há consultas a casas de apostas, depósitos ou execução de apostas.</section>
+
+    <section class="providers">
+      <details id="oddsProvider" class="panel provider-card">
+        <summary>
+          <div><span class="eyebrow">ODDS • CAMPEONATOS MUNDIAIS</span><h2>OddsPapi</h2><span class="summary-hint">Clique para buscar e importar odds</span></div>
+          <span id="oddsPapiStatus" class="tag">Verificando…</span>
+        </summary>
+        <div class="provider-content">
+          <p class="muted">Escolha país e campeonato para importar o mercado 1X2. Use o catálogo e o botão de cada jogo para conferir outros mercados, períodos e props devolvidos pelas casas.</p>
+          <div class="form-grid compact-grid">
+            <div class="field"><label for="oddsPapiFrom">Data inicial</label><input id="oddsPapiFrom" type="date"></div>
+            <div class="field"><label for="oddsPapiTo">Data final</label><input id="oddsPapiTo" type="date"></div>
+            <div class="field"><label for="oddsPapiCountry">País</label><select id="oddsPapiCountry"><option value="">Carregando países…</option></select></div>
+            <div class="field"><label for="oddsPapiTournament">Campeonato</label><select id="oddsPapiTournament"><option value="">Escolha o país</option></select></div>
+            <div class="field"><label for="oddsPapiMax">Máximo de consultas de odds</label><input id="oddsPapiMax" type="number" min="1" max="20" value="20"></div>
+          </div>
+          <div class="field"><label for="oddsPapiBookmakers">Casas (separadas por vírgula)</label><input id="oddsPapiBookmakers" type="text"></div>
+          <p class="small muted">Todos os jogos da agenda aparecem na lista. O limite acima controla só quantos terão as odds consultadas (1 chamada por jogo, com intervalo de 2 segundos). Pinnacle continua nas cotações e também serve como referência no-vig.</p>
+          <div class="actions"><button id="oddsPapiImport" class="primary">Buscar odds</button><button id="reloadOddsPapiTournaments">Recarregar campeonatos</button><button id="loadOddsPapiMarkets">Ver mercados da API</button></div>
+          <pre id="oddsPapiResult" class="result compact-result">Nenhuma busca feita nesta sessão.</pre>
+          <section id="oddsPapiMarketCatalog" class="odds-diagnostic" hidden></section>
+          <div id="oddsPapiFixtures" class="fixture-directory" hidden></div>
+        </div>
+      </details>
+
+      <details id="footyProvider" class="panel provider-card">
+        <summary>
+          <div><span class="eyebrow">ESTATÍSTICAS • TIMES</span><h2>FootyStats</h2><span class="summary-hint">Últimos 5/10, casa/fora, 1T e 2T</span></div>
+          <span id="footyStatsStatus" class="tag">Verificando…</span>
+        </summary>
+        <div class="provider-content">
+          <p class="muted">O catálogo completo aparece por país. Campeonatos não liberados no seu plano ficam identificados e bloqueados antes da consulta.</p>
+          <div class="form-grid">
+            <div class="field"><label for="footyCountry">País</label><select id="footyCountry"><option value="">Carregando países…</option></select></div>
+            <div class="field"><label for="footyLeague">Campeonato / temporada</label><select id="footyLeague"><option value="">Escolha o país</option></select></div>
+          </div>
+          <div class="form-grid">
+            <div class="field"><label for="footyHomeId">Mandante</label><select id="footyHomeId"><option value="">Escolha o campeonato</option></select></div>
+            <div class="field"><label for="footyAwayId">Visitante</label><select id="footyAwayId"><option value="">Escolha o campeonato</option></select></div>
+          </div>
+          <div class="actions"><button id="footyCompare" class="primary">Comparar estatísticas</button><button id="reloadFootyLeagues">Recarregar campeonatos</button></div>
+          <pre id="footyStatsResult" class="result compact-result">Nenhuma comparação feita nesta sessão.</pre>
+        </div>
+      </details>
+      <details id="footyCsvProvider" class="panel provider-card">
+        <summary><div><span class="eyebrow">ESTATÍSTICAS • CSV LOCAL</span><h2>FootyStats CSV</h2><span class="summary-hint">Partidas concluídas: últimos 5/10 e casa/fora</span></div><span class="tag">Sem API</span></summary>
+        <div class="provider-content">
+          <p class="muted">Importe os CSVs FootyStats de <strong>matches, teams, teams2 e players</strong>. Últimos 5/10 usam apenas as partidas concluídas do arquivo matches. A comparação estatística funciona sem conexão com provedores.</p>
+          <div class="field"><label for="footyCsvFile">CSVs FootyStats</label><input id="footyCsvFile" type="file" accept=".csv,text/csv" multiple></div>
+          <div class="actions"><button id="footyCsvImport" class="primary" type="button">Importar CSVs</button></div>
+          <div class="form-grid compact-grid">
+            <div class="field"><label for="footyCsvSeason">Campeonato / temporada</label><select id="footyCsvSeason"><option value="">Nenhum CSV importado</option></select></div>
+            <div class="field"><label for="footyCsvHome">Mandante</label><select id="footyCsvHome"></select></div>
+            <div class="field"><label for="footyCsvAway">Visitante</label><select id="footyCsvAway"></select></div>
+            <div class="field"><label for="footyCsvBefore">Antes de (opcional)</label><input id="footyCsvBefore" type="datetime-local"></div>
+          </div>
+          <div class="actions"><button id="footyCsvCompare" type="button">Comparar histórico</button></div>
+          <pre id="footyCsvStatus" class="result compact-result">Importe um CSV de partidas para começar.</pre>
+        </div>
+      </details>
+    </section>
+
+    <div id="footyComparisonAnchor"><section id="footyComparison" class="footy-comparison" hidden></section></div>
+    <section id="footyCsvComparison" class="footy-comparison" hidden></section>
+
+    <details id="builderProvider" class="panel builder-panel">
+      <summary><span class="eyebrow">SIMULAÇÃO • ANÁLISE HISTÓRICA</span><strong>Montar cenário e conferir frequências</strong></summary>
+      <div class="builder-content">
+        <p class="muted">Escolha uma temporada importada, a partida e o horário. As frequências descrevem o histórico importado; não representam previsões validadas. As consultas de cotações estão desativadas.</p>
+        <div class="form-grid compact-grid">
+          <div class="field"><label for="builderSeason">Campeonato / temporada</label><select id="builderSeason"></select></div>
+          <div class="field"><label for="builderHome">Mandante</label><select id="builderHome"></select></div>
+          <div class="field"><label for="builderAway">Visitante</label><select id="builderAway"></select></div>
+          <div class="field"><label for="builderKickoff">Data e hora da partida</label><input id="builderKickoff" type="datetime-local"></div>
+          <div class="field"><label for="builderFixtureId">Fixture ID OddsPapi (opcional)</label><input id="builderFixtureId" type="text" placeholder="ID do jogo na OddsPapi"></div>
+        </div>
+        <div class="actions"><button id="builderCreate" class="primary" type="button">Criar cenário</button><label for="builderSlip">Cenário salvo</label><select id="builderSlip"><option value="">Nenhum cenário</option></select><button id="builderDeleteSlip" type="button">Excluir cenário</button></div>
+        <div id="builderLegForm" hidden>
+          <h3>Adicionar seleção</h3>
+          <div class="form-grid compact-grid">
+            <div class="field"><label for="builderMarket">Tipo de mercado</label><select id="builderMarket"><option value="total">Mais/menos de uma linha</option><option value="result">Resultado 1X2</option><option value="double_chance">Chance dupla</option><option value="btts">Ambas marcam</option><option value="asian_handicap">Handicap asiático</option><option value="european_handicap">Handicap europeu (aplicado ao mandante)</option><option value="custom">Outro mercado / prop sem dados por jogo</option></select></div>
+            <div class="field"><label for="builderMetric">Estatística</label><select id="builderMetric"><option value="goals">Gols FT</option><option value="firstHalfGoals">Gols 1º tempo</option><option value="secondHalfGoals">Gols 2º tempo</option><option value="corners">Escanteios FT</option><option value="yellow">Cartões amarelos FT</option><option value="red">Cartões vermelhos FT</option><option value="cardsTotal">Cartões amarelos + vermelhos FT</option><option value="firstHalfCards">Cartões 1º tempo</option><option value="secondHalfCards">Cartões 2º tempo</option><option value="shots">Finalizações FT</option><option value="onTarget">Chutes no gol FT</option></select></div>
+            <div class="field"><label for="builderSubject">Equipe / total</label><select id="builderSubject"><option value="match">Total da partida</option><option value="home">Mandante</option><option value="away">Visitante</option></select></div>
+            <div class="field"><label for="builderPick">Seleção</label><select id="builderPick"><option value="over">Mais de</option><option value="under">Menos de</option></select></div>
+            <div class="field"><label for="builderLine">Linha / handicap</label><input id="builderLine" type="number" step="0.25" value="1.5"></div>
+            <div class="field"><label for="builderLabel">Nome da entrada (opcional)</label><input id="builderLabel" type="text" placeholder="Ex.: mais de 8,5 escanteios"></div>
+          </div>
+          <div class="field"><label for="builderQuote">Cotação OddsPapi correspondente (opcional)</label><select id="builderQuote"><option value="">Sem cotação vinculada</option></select></div>
+          <div class="actions"><button id="builderFetchQuotes" type="button">Buscar cotações OddsPapi</button><button id="builderAddLeg" class="primary" type="button">Adicionar seleção</button></div>
+          <p class="small muted">O mercado de uma cotação precisa corresponder ao tipo, período, resultado e linha cadastrados. Cotações antigas ou sem horário não geram EV.</p>
+        </div>
+        <pre id="builderStatus" class="result compact-result">Crie ou abra um cenário para adicionar seleções.</pre>
+        <div id="builderResults" class="builder-results"></div>
+      </div>
+    </details>
+
+    <div class="list-heading"><div><span class="eyebrow">JOGOS SELECIONADOS</span><h2>Laboratório de simulações</h2></div><button id="refreshMarkets">Atualizar jogos</button></div>
+    <nav class="scanner-tabs" aria-label="Modos do scanner">
+      <button type="button" class="scanner-tab active" data-scanner-tab="opportunities">Visão geral</button>
+      <button type="button" class="scanner-tab" data-scanner-tab="all-markets">Dados das simulações</button>
+      <button type="button" class="scanner-tab" data-scanner-tab="surebet">Arbitragem fictícia</button>
+    </nav>
+    <section id="opportunityMarkets" class="market-list"><div class="empty">Faça uma busca na OddsPapi para analisar oportunidades em todos os mercados.</div></section>
+    <section id="allOddsMarkets" class="market-list" hidden><div class="empty">Faça uma busca para visualizar os mercados disponíveis.</div></section>
+    <section id="markets" class="market-list" hidden><div class="empty">Carregando surebets…</div></section>
+    <div id="oddsPapiFixtureInspectionAnchor"><section id="oddsPapiFixtureInspection" class="panel fixture-market-inspection" hidden></section></div>
+
+    <section class="grid-two">
+      <article class="panel">
+        <div class="section-title"><div><span class="eyebrow">ENTRADA DE DADOS</span><h2>Importar cotações fictícias</h2></div></div>
+        <p class="muted">Escolha um CSV/JSON ou cole o conteúdo. A importação exige is_demo=true, valida linhas e ignora duplicatas exatas.</p>
+        <input id="file" type="file" accept=".csv,.json,text/csv,application/json">
+        <textarea id="payload" rows="9" placeholder="Cole aqui CSV ou JSON…"></textarea>
+        <div class="actions"><button id="importCsv">Importar CSV</button><button id="importJson">Importar JSON</button></div>
+        <pre id="importResult" class="result">Nenhuma importação feita nesta sessão.</pre>
+      </article>
+
+      <article class="panel">
+        <div class="section-title"><div><span class="eyebrow">GESTÃO DE RISCO</span><h2>Capital virtual e alocação</h2></div></div>
+        <form id="settings">
+          <div class="form-grid">
+            <div class="field"><label for="bankroll">Saldo virtual (R$)</label><input id="bankroll" name="bankroll" type="number" min="1" step="0.01" required></div>
+            <div class="field"><label for="max_exposure_pct">Exposição máx. por oportunidade (%)</label><input id="max_exposure_pct" name="max_exposure_pct" type="number" min="0.1" max="100" step="0.1" required></div>
+            <div class="field"><label for="surebet_stake">Stake total desejada — surebet (R$)</label><input id="surebet_stake" name="surebet_stake" type="number" min="0.01" step="0.01" required></div>
+            <div class="field"><label for="ev_stake_mode">Stake das apostas +EV</label><select id="ev_stake_mode" name="ev_stake_mode"><option value="kelly">Kelly fracionado</option><option value="fixed">Stake fixa</option></select></div>
+            <div class="field"><label for="kelly_fraction">Fração de Kelly</label><input id="kelly_fraction" name="kelly_fraction" type="number" min="0" max="1" step="0.05" required></div>
+            <div class="field"><label for="ev_fixed_stake">Stake fixa desejada — +EV (R$)</label><input id="ev_fixed_stake" name="ev_fixed_stake" type="number" min="0.01" step="0.01" required></div>
+            <div class="field"><label for="min_ev_pct">EV mínimo padrão (%)</label><input id="min_ev_pct" name="min_ev_pct" type="number" step="0.1" required></div>
+          </div>
+          <div id="riskSummary" class="risk-summary"></div>
+          <button class="primary" type="submit">Salvar configurações</button>
+        </form>
+        <p class="warning">A exposição máxima prevalece sobre as stakes desejadas. Kelly depende da qualidade da probabilidade informada. Todos os saldos desta demonstração são virtuais.</p>
+      </article>
+    </section>
+
+    <section class="panel">
+      <div class="section-title"><div><span class="eyebrow">AUDITORIA</span><h2>Histórico de cálculos</h2></div><button id="loadHistory">Recarregar</button></div>
+      <div id="history" class="history"><span class="muted">Registre uma oportunidade no scanner e depois informe o resultado aqui.</span></div>
+    </section>
+  </main>
+
+  <footer>Projeto de portfólio de Bruno Deguti • Node.js, Express, SQLite e análise de dados • Simulações offline</footer>
+  <script type="module" src="/portfolio.js"></script>
+  <script type="module" src="/app.js"></script>
+  <script type="module" src="/betBuilderUi.js"></script>
+</body>
+</html>
