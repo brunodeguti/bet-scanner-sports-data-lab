@@ -17,6 +17,26 @@ O projeto nasceu de um scanner de odds. Esta versão de portfólio preserva os m
 
 **Todos os valores financeiros são virtuais.** Não há depósitos, saques, links de afiliados ou execução de apostas. Marcar um arquivo como fictício é uma declaração do usuário: o sistema não consegue verificar a procedência de dados inseridos manualmente.
 
+## Interface
+
+### Scanner e simulações matemáticas
+
+Visão dos mercados fictícios, identificação de arbitragem e comparação de cotações com valor esperado.
+
+![Scanner com mercados fictícios e cálculos de arbitragem](docs/images/scanner.png)
+
+### Comparação dos últimos 5 e 10 jogos
+
+Comparação entre Estrela FC e Laranja FC com dados sintéticos, usando o recorte dos últimos 5 jogos do mandante em casa e do visitante fora. A interface também permite selecionar os últimos 10 jogos e informa a quantidade de observações disponível para cada métrica.
+
+![Comparação estatística dos últimos 5 jogos de Estrela FC e Laranja FC](docs/images/comparacao-ultimos-5.png)
+
+### Partidas usadas no histórico
+
+Detalhamento das partidas que compõem a amostra, com data, adversário, placar, escanteios, cartões, finalizações e chutes no gol. Campos ausentes são exibidos como indisponíveis.
+
+![Partidas usadas na comparação histórica das equipes](docs/images/historico-partidas.png)
+
 ## Executar localmente
 
 Requisito: **Node.js 24 ou superior**. A aplicação usa o SQLite integrado ao Node e não exige um serviço de banco separado.
@@ -26,7 +46,7 @@ npm ci
 npm start
 ```
 
-Abra <http://localhost:3000>. No Windows, também é possível usar `INICIAR-WINDOWS.cmd`.
+Abra <http://localhost:3000>. No Windows, também é possível usar `INICIAR-WINDOWS.cmd`. Se o PowerShell bloquear `npm.ps1`, use `npm.cmd ci` e `npm.cmd start`.
 
 A primeira inicialização cria um banco local com três mercados fictícios e **40 partidas sintéticas**. Não é preciso configurar `.env` nem contratar uma API. O navegador consulta apenas o servidor local; `npm ci` precisa de acesso ao registro de pacotes.
 
